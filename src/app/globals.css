@@ -1,0 +1,49 @@
+/* src/app/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== Design tokens ===== */
+:root {
+  --brand: 252 84% 60%; /* primary hue for accents (HSL) */
+  --glass-bg: 0 0% 100% / 0.06;
+  --glass-stroke: 0 0% 100% / 0.12;
+}
+
+/* Keep in-page anchor targets below sticky header */
+html { scroll-padding-top: 88px; }
+
+/* ===== Reusable UI helpers ===== */
+
+/* Frosted glass card */
+.glass {
+  @apply backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl;
+  box-shadow: 0 0 1px 1px rgba(255,255,255,0.04);
+}
+
+/* Subtle glossy overlay */
+.shimmer {
+  background-image:
+    radial-gradient(1200px 200px at 50% -20%, rgba(255,255,255,.07), rgba(255,255,255,0)),
+    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0));
+}
+
+/* Section rhythm */
+.section-padding { @apply py-20 md:py-28; }
+.section-title   { @apply text-3xl md:text-5xl font-semibold tracking-tight; }
+.section-sub     { @apply text-zinc-400 max-w-2xl; }
+
+/* Accessible focus ring */
+.focus-ring {
+  @apply outline-none ring-2 ring-white/30 ring-offset-2 ring-offset-black rounded-xl;
+}
+
+/* Brand gradient text */
+.gradient-text {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(90deg, hsl(var(--brand)), #7c3aed, #22d3ee);
+}
+
+/* (Optional) 3D helpers if you want tilt effects later */
+.tilt-card  { perspective: 1000px; }
+.tilt-inner { transform-style: preserve-3d; }

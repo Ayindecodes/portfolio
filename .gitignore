@@ -1,0 +1,20 @@
+﻿# dependencies
+node_modules/
+.pnp.* 
+
+# next / build outputs
+.next/
+out/
+dist/
+build/
+.turbo/
+.vercel/
+
+# misc
+.env*
+*.log
+.DS_Store
+
+# editor
+.vscode/
+.idea/
