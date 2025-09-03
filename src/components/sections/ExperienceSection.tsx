@@ -105,9 +105,10 @@ const liVariants = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.35, ease: "easeOut" },
+    transition: { duration: 0.35, ease: smoothEase }, // <- typed easing
   },
 };
+
 
 export default function ExperienceSection() {
   const ref = useRef<HTMLDivElement | null>(null);
