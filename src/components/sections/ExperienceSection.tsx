@@ -1,7 +1,7 @@
 // src/components/sections/ExperienceSection.tsx
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, cubicBezier } from "framer-motion"; // ⬅️ added cubicBezier
 import { useRef } from "react";
 import {
   Briefcase,
@@ -88,12 +88,15 @@ const containerVariants = {
   },
 };
 
+// ✅ Use a typed easing function instead of number[]
+const smoothEase = cubicBezier(0.25, 0.25, 0, 1);
+
 const itemVariants = {
   hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.45, ease: [0.25, 0.25, 0, 1] },
+    transition: { duration: 0.45, ease: smoothEase }, // ⬅️ replaced [0.25,0.25,0,1]
   },
 };
 
