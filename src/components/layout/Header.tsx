@@ -14,8 +14,8 @@ import {
 } from "lucide-react";
 
 type NavLink = { href: `#${string}`; label: string; emoji?: string };
-type IconComp = React.ComponentType<{ size?: number; className?: string }>;
-type SocialLink = { href: string; label: string; Icon: IconComp };
+import type { LucideIcon } from "lucide-react";
+type SocialLink = { href: string; label: string; Icon: LucideIcon };
 
 const LINKS: NavLink[] = [
   { href: "#about", label: "About", emoji: "👨‍💻" },
@@ -235,7 +235,7 @@ export default function Header() {
               </div>
 
               <a
-                href="/resume.pdf"
+                href="/resume/resume.pdf"
                 download
                 className="mt-3 mb-2 mx-2 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-white bg-gradient-to-r from-fuchsia-600 to-cyan-600"
                 onClick={() => setOpen(false)}
