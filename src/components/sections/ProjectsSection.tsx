@@ -19,6 +19,7 @@ import {
   Clock,
   ArrowUpRight,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 type Tag =
   | "React"
@@ -62,7 +63,8 @@ const ALL_TAGS = [
   "E-commerce",
 ] as const;
 
-const TAG_ICONS: Record<Tag, React.ComponentType<{ size?: number; className?: string }>> = {
+// ✅ use LucideIcon so size can be number | string (what lucide-react expects)
+const TAG_ICONS: Record<Tag, LucideIcon> = {
   React: Code2,
   Django: Server,
   API: Database,
@@ -156,10 +158,7 @@ const PROJECTS: Project[] = [
 export default function ProjectsSection() {
   const [filter, setFilter] = useState<(typeof ALL_TAGS)[number]>("All");
 
-  const featured = useMemo(
-    () => PROJECTS.find((p) => p.featured),
-    []
-  );
+  const featured = useMemo(() => PROJECTS.find((p) => p.featured), []);
 
   const projects = useMemo(() => {
     const pool = PROJECTS.filter((p) => (featured ? p.title !== featured.title : true));
@@ -288,7 +287,8 @@ export default function ProjectsSection() {
         {/* filters */}
         <div className="mt-12 flex flex-wrap justify-center gap-2">
           {ALL_TAGS.map((t) => {
-            const Icon = t === "All" ? FolderOpen : TAG_ICONS[t as Tag];
+            // ✅ annotate so TS doesn’t widen to a union here
+            const Icon: LucideIcon = t === "All" ? FolderOpen : TAG_ICONS[t as Tag];
             const active = filter === t;
             return (
               <button

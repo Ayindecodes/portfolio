@@ -12,9 +12,9 @@ import {
   Mail,
   Download,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 type NavLink = { href: `#${string}`; label: string; emoji?: string };
-import type { LucideIcon } from "lucide-react";
 type SocialLink = { href: string; label: string; Icon: LucideIcon };
 
 const LINKS: NavLink[] = [
@@ -37,16 +37,14 @@ export default function Header() {
   const [active, setActive] = useState<string>("#hero");
   const [mouse, setMouse] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
-  // Scroll + section spy
   useEffect(() => {
     const onScroll = () => {
       const y = window.scrollY;
       setScrolled(y > 8);
 
-      // pick the section whose top is closest but not greater than current scroll
       const candidates = LINKS.map((l) => l.href.slice(1));
       let current = "#hero";
-      const yPlus = y + 100; // offset for header
+      const yPlus = y + 100;
       for (const id of candidates) {
         const el = document.getElementById(id);
         if (!el) continue;
@@ -61,14 +59,12 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Mouse radial glow (only when scrolled to avoid full-page repaints at top)
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!scrolled) return;
     const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
     setMouse({ x: e.clientX - rect.left, y: e.clientY - rect.top });
   };
 
-  // Desktop nav links with active state
   const DesktopNav = useMemo(
     () => (
       <nav aria-label="Main navigation" className="hidden lg:flex items-center gap-1">
@@ -125,7 +121,6 @@ export default function Header() {
     >
       <div className="mx-auto max-w-7xl px-4 md:px-6">
         <div className="flex h-16 md:h-20 items-center justify-between">
-          {/* Brand */}
           <a
             href="#hero"
             className="group flex items-center gap-3 font-semibold rounded-xl px-2 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
@@ -142,13 +137,11 @@ export default function Header() {
             </span>
           </a>
 
-          {/* Desktop nav */}
           {DesktopNav}
 
-          {/* Right actions (desktop) */}
           <div className="hidden md:flex items-center gap-3">
             <div className="flex items-center gap-2">
-              {SOCIAL_LINKS.map(({ href, label, Icon }, idx) => (
+              {SOCIAL_LINKS.map(({ href, label, Icon }) => (
                 <motion.a
                   key={href}
                   href={href}
@@ -174,7 +167,6 @@ export default function Header() {
             </motion.a>
           </div>
 
-          {/* Mobile toggle */}
           <button
             aria-label="Toggle menu"
             className="md:hidden p-2 rounded-lg hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
@@ -185,7 +177,6 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {open && (
           <motion.div

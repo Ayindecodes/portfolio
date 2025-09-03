@@ -20,13 +20,12 @@ import {
   Award,
   Filter,
 } from "lucide-react";
-
-type IconComp = React.ComponentType<{ size?: number; className?: string }>;
+import type { LucideIcon } from "lucide-react";
 
 type Skill = {
   name: string;
   level: number; // 0–100
-  Icon: IconComp;
+  Icon: LucideIcon;
   tag: "Frontend" | "Backend" | "DevOps" | "Tools";
   description: string;
   experience: string;
@@ -34,30 +33,30 @@ type Skill = {
 };
 
 const SKILLS: Skill[] = [
-  { name: "React",        level: 95, Icon: Code2,    tag: "Frontend", description: "Building dynamic, component-based UIs",   experience: "2+ years",  color: "from-cyan-400 to-blue-500" },
-  { name: "TypeScript",   level: 90, Icon: Code2,    tag: "Frontend", description: "Type-safe development & better DX",       experience: "1.5+ years",color: "from-blue-400 to-indigo-500" },
-  { name: "Next.js",      level: 88, Icon: Layers,   tag: "Frontend", description: "Full-stack React framework",               experience: "1+ year",   color: "from-gray-400 to-gray-600" },
-  { name: "Tailwind CSS", level: 95, Icon: Monitor,  tag: "Frontend", description: "Utility-first CSS framework",              experience: "2+ years",  color: "from-teal-400 to-cyan-500" },
-  { name: "Python",       level: 92, Icon: Cpu,      tag: "Backend",  description: "Backend development & automation",         experience: "2+ years",  color: "from-yellow-400 to-orange-500" },
-  { name: "Django",       level: 90, Icon: Blocks,   tag: "Backend",  description: "Robust Python web framework",              experience: "2+ years",  color: "from-green-400 to-emerald-500" },
-  { name: "REST APIs",    level: 88, Icon: Settings, tag: "Backend",  description: "RESTful API design & development",         experience: "2+ years",  color: "from-purple-400 to-pink-500" },
-  { name: "PostgreSQL",   level: 85, Icon: Database, tag: "DevOps",   description: "Advanced SQL & database design",           experience: "1.5+ years",color: "from-blue-500 to-purple-600" },
-  { name: "Docker",       level: 80, Icon: Cloud,    tag: "DevOps",   description: "Containerization & deployment",            experience: "1+ year",   color: "from-sky-400 to-blue-600" },
-  { name: "AWS",          level: 75, Icon: Cloud,    tag: "DevOps",   description: "Cloud services & infrastructure",          experience: "1+ year",   color: "from-orange-400 to-red-500" },
-  { name: "Git/GitHub",   level: 95, Icon: GitBranch,tag: "Tools",    description: "Version control & collaboration",          experience: "2+ years",  color: "from-gray-500 to-gray-700" },
-  { name: "Security/A11y",level: 78, Icon: ShieldCheck,tag: "Tools",  description: "Web security & accessibility",             experience: "1+ year",   color: "from-emerald-400 to-teal-600" },
+  { name: "React",        level: 95, Icon: Code2,      tag: "Frontend", description: "Building dynamic, component-based UIs",   experience: "2+ years",  color: "from-cyan-400 to-blue-500" },
+  { name: "TypeScript",   level: 90, Icon: Code2,      tag: "Frontend", description: "Type-safe development & better DX",       experience: "1.5+ years",color: "from-blue-400 to-indigo-500" },
+  { name: "Next.js",      level: 88, Icon: Layers,     tag: "Frontend", description: "Full-stack React framework",               experience: "1+ year",   color: "from-gray-400 to-gray-600" },
+  { name: "Tailwind CSS", level: 95, Icon: Monitor,    tag: "Frontend", description: "Utility-first CSS framework",              experience: "2+ years",  color: "from-teal-400 to-cyan-500" },
+  { name: "Python",       level: 92, Icon: Cpu,        tag: "Backend",  description: "Backend development & automation",         experience: "2+ years",  color: "from-yellow-400 to-orange-500" },
+  { name: "Django",       level: 90, Icon: Blocks,     tag: "Backend",  description: "Robust Python web framework",              experience: "2+ years",  color: "from-green-400 to-emerald-500" },
+  { name: "REST APIs",    level: 88, Icon: Settings,   tag: "Backend",  description: "RESTful API design & development",         experience: "2+ years",  color: "from-purple-400 to-pink-500" },
+  { name: "PostgreSQL",   level: 85, Icon: Database,   tag: "DevOps",   description: "Advanced SQL & database design",           experience: "1.5+ years",color: "from-blue-500 to-purple-600" },
+  { name: "Docker",       level: 80, Icon: Cloud,      tag: "DevOps",   description: "Containerization & deployment",            experience: "1+ year",   color: "from-sky-400 to-blue-600" },
+  { name: "AWS",          level: 75, Icon: Cloud,      tag: "DevOps",   description: "Cloud services & infrastructure",          experience: "1+ year",   color: "from-orange-400 to-red-500" },
+  { name: "Git/GitHub",   level: 95, Icon: GitBranch,  tag: "Tools",    description: "Version control & collaboration",          experience: "2+ years",  color: "from-gray-500 to-gray-700" },
+  { name: "Security/A11y",level: 78, Icon: ShieldCheck,tag: "Tools",    description: "Web security & accessibility",             experience: "1+ year",   color: "from-emerald-400 to-teal-600" },
 ];
 
 const TABS = ["All", "Frontend", "Backend", "DevOps", "Tools"] as const;
 
-const TAG_ICONS: Record<Exclude<typeof TABS[number], "All">, IconComp> = {
+const TAG_ICONS: Record<Exclude<(typeof TABS)[number], "All">, LucideIcon> = {
   Frontend: Monitor,
   Backend: Server,
   DevOps: Cloud,
   Tools: Wrench,
 };
 
-const TAG_COLORS: Record<Exclude<typeof TABS[number], "All">, string> = {
+const TAG_COLORS: Record<Exclude<(typeof TABS)[number], "All">, string> = {
   Frontend: "from-cyan-500/20 to-blue-500/20 border-cyan-500/30",
   Backend: "from-green-500/20 to-emerald-500/20 border-green-500/30",
   DevOps: "from-purple-500/20 to-pink-500/20 border-purple-500/30",
@@ -65,7 +64,7 @@ const TAG_COLORS: Record<Exclude<typeof TABS[number], "All">, string> = {
 };
 
 export default function SkillsSection() {
-  const [active, setActive] = useState<typeof TABS[number]>("All");
+  const [active, setActive] = useState<(typeof TABS)[number]>("All");
 
   const filtered = useMemo(
     () => (active === "All" ? SKILLS : SKILLS.filter((s) => s.tag === active)),
@@ -118,7 +117,7 @@ export default function SkillsSection() {
             { label: "Technologies", value: stats.total, Icon: Code2 },
             { label: "Expert Level", value: stats.experts, Icon: Award },
             { label: "Avg Proficiency", value: `${stats.avg}%`, Icon: TrendingUp },
-          ].map(({ label, value, Icon }, i) => (
+          ].map(({ label, value, Icon }) => (
             <div
               key={label}
               className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm"
@@ -143,7 +142,8 @@ export default function SkillsSection() {
         >
           {TABS.map((tab) => {
             const isActive = active === tab;
-            const Ico = tab === "All" ? (Filter as IconComp) : TAG_ICONS[tab as Exclude<typeof TABS[number], "All">];
+            const Ico: LucideIcon =
+              tab === "All" ? Filter : TAG_ICONS[tab as Exclude<(typeof TABS)[number], "All">];
             return (
               <motion.button
                 key={tab}
